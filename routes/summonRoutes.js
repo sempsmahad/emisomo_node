@@ -5,7 +5,7 @@ const {
   createSummon,
   getAllSummons,
 } = require('../controllers/summonController')
-const { uploadsController } = require('../controllers/uploadsController')
+const { uploadSummonAudio } = require('../controllers/uploadsController')
 
 router.route('/').post(createSummon).get(getAllSummons)
 router.route('/uploads').post(uploadSummonAudio)

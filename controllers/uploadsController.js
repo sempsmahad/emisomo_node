@@ -42,6 +42,7 @@ const uploadSummonAudio = async (req, res) => {
   const result = await cloudinary.uploader.upload(
     req.files.audio.tempFilePath,
     {
+      resource_type: 'video',
       use_filename: true,
       folder: 'file-upload',
     }
