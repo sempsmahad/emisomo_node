@@ -3,6 +3,7 @@ const { StatusCodes } = require('http-status-codes')
 const CustomError = require('../errors')
 const cloudinary = require('cloudinary').v2
 const fs = require('fs')
+const Summon = require('../models/Summon')
 
 const uploadProductImageLocal = async (req, res) => {
   if (!req.files) {
@@ -42,13 +43,17 @@ const uploadSummonAudio = async (req, res) => {
   const result = await cloudinary.uploader.upload(
     req.files.audio.tempFilePath,
     {
-      resource_type: 'video',
+      resource_type: 'auto',
       use_filename: true,
       folder: 'file-upload',
     }
   )
+  const newSummon = await Summon.create({
+    ...req.body,
+    audio: result.secure_url,
+  })
   fs.unlinkSync(req.files.audio.tempFilePath)
-  return res.status(StatusCodes.OK).json({ audio: { src: result.secure_url } })
+  return res.status(StatusCodes.OK).json({ newSummon })
 }
 
 module.exports = {
