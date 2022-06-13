@@ -51,7 +51,7 @@ app.use(xss())
 app.use(fileUpload({ useTempFiles: true }))
 
 app.get('/', (req, res) => {
-  res.send('<h1>File Upload Starter</h1>')
+  res.send('<h1>Sautil Islamiyah</h1>')
 })
 
 // routes
