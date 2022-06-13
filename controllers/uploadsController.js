@@ -48,11 +48,13 @@ const uploadSummonAudio = async (req, res) => {
       folder: 'file-upload',
     }
   )
+
+  fs.unlinkSync(req.files.audio.tempFilePath)
   const newSummon = await Summon.create({
     ...req.body,
     audio: result.secure_url,
   })
-  fs.unlinkSync(req.files.audio.tempFilePath)
+
   return res.status(StatusCodes.OK).json({ newSummon })
 }
 
